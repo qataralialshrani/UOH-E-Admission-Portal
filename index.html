@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جامعة حفر الباطن - بوابة القبول والتسجيل</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root {
+            --forest-green: #006837;
+            --gold: #D4AF37;
+            --light-gray: #f5f5f5;
+        }
+        
+        * {
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+        }
+        
+        .step {
+            display: none;
+        }
+        
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--forest-green);
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .specialty-card {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .specialty-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .specialty-card.selected {
+            border-color: var(--forest-green);
+            background-color: rgba(0, 104, 55, 0.05);
+        }
+        
+        .fee-sidebar {
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .glow-border {
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .required-field::after {
+            content: " *";
+            color: red;
+        }
+        
+        .university-header {
+            background: linear-gradient(135deg, var(--forest-green) 0%, #004d27 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .university-header::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23D4AF37' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+        
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* تحسينات التخصصات في المرحلة الثانية */
+        .specialty-card-step2 {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        .specialty-card-step2:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .specialty-card-step2.selected {
+            border: 2px solid var(--forest-green) !important;
+            background-color: rgba(0, 104, 55, 0.1) !important;
+            transform: scale(0.98);
+        }
+        
+        @keyframes pulse-select {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        /* تحسينات التجاوب للشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .fee-sidebar {
+                position: static;
+                width: 100%;
+                margin-top: 2rem;
+            }
+            
+            .progress-bar {
+                margin: 0 1rem;
+            }
+            
+            .text-center.w-1\/4 .w-10 {
+                width: 8px;
+                height: 8px;
+                font-size: 0.7rem;
+                padding: 0.5rem;
+            }
+            
+            .text-center.w-1\/4 p {
+                font-size: 0.7rem;
+            }
+            
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .university-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .university-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .specialty-card {
+                padding: 1.5rem !important;
+            }
+            
+            .specialty-card .text-4xl {
+                font-size: 2.5rem;
+            }
+            
+            .specialty-card-step2 {
+                min-height: 80px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            .specialty-card-step2.selected {
+                transform: scale(0.98);
+                box-shadow: 0 5px 15px rgba(0, 104, 55, 0.2);
+                animation: pulse-select 0.5s ease;
+            }
+            
+            .specialty-card-step2:active {
+                transform: scale(0.95);
+                transition: transform 0.1s;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .grid-cols-1 {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .md\:grid-cols-2 {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .md\:grid-cols-3 {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .text-2xl, .text-3xl {
+                font-size: 1.5rem;
+            }
+            
+            .text-xl {
+                font-size: 1.3rem;
+            }
+            
+            .text-lg {
+                font-size: 1.1rem;
+            }
+            
+            .px-8 {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            
+            .py-3 {
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+            }
+            
+            .w-32 {
+                width: 6rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .container {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            
+            .university-header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .university-header h2 {
+                font-size: 1rem;
+            }
+            
+            .specialty-card {
+                padding: 1rem !important;
+            }
+            
+            .specialty-card .text-4xl {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Header -->
+    <header class="university-header py-4 md:py-6 px-4">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center relative z-10">
+            <div class="text-center md:text-right mb-3 md:mb-0">
+                <h1 class="text-xl md:text-3xl font-bold mb-1 md:mb-2">جامعة حفر الباطن</h1>
+                <h2 class="text-lg md:text-2xl font-semibold text-yellow-100">بوابة القبول والتسجيل</h2>
+            </div>
+            <div class="text-center md:text-left">
+                <p class="text-base md:text-lg text-yellow-100">الالتحاق بالعام الدراسي 2025</p>
+                <p class="text-xs md:text-sm text-gray-200 mt-1">ابدأ رحلتك الأكاديمية معنا</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-4 md:py-6 px-3 md:px-4">
+        <!-- Progress Steps -->
+        <div class="mb-6 md:mb-10">
+            <div class="flex justify-between items-center mb-3 md:mb-4">
+                <div class="text-center w-1/4">
+                    <div class="w-8 h-8 md:w-10 md:h-10 mx-auto rounded-full flex items-center justify-center mb-1 md:mb-2 bg-green-700 text-white font-bold text-sm md:text-base">١</div>
+                    <p class="text-xs md:text-sm font-medium">تحديد المسار</p>
+                </div>
+                <div class="text-center w-1/4">
+                    <div class="w-8 h-8 md:w-10 md:h-10 mx-auto rounded-full flex items-center justify-center mb-1 md:mb-2 bg-gray-300 text-gray-700 font-bold text-sm md:text-base">٢</div>
+                    <p class="text-xs md:text-sm font-medium text-gray-500">البيانات الأكاديمية</p>
+                </div>
+                <div class="text-center w-1/4">
+                    <div class="w-8 h-8 md:w-10 md:h-10 mx-auto rounded-full flex items-center justify-center mb-1 md:mb-2 bg-gray-300 text-gray-700 font-bold text-sm md:text-base">٣</div>
+                    <p class="text-xs md:text-sm font-medium text-gray-500">اختيار التخصص</p>
+                </div>
+                <div class="text-center w-1/4">
+                    <div class="w-8 h-8 md:w-10 md:h-10 mx-auto rounded-full flex items-center justify-center mb-1 md:mb-2 bg-gray-300 text-gray-700 font-bold text-sm md:text-base">٤</div>
+                    <p class="text-xs md:text-sm font-medium text-gray-500">مراجعة وإرسال</p>
+                </div>
+            </div>
+            <div class="progress-bar mx-2 md:mx-0">
+                <div class="progress-fill" id="progressFill" style="width: 25%"></div>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-4 md:gap-8">
+            <!-- Main Form Content -->
+            <div class="lg:w-2/3">
+                <!-- Form for Web3Forms submission -->
+                <form id="admissionForm" action="https://api.web3forms.com/submit" method="POST" class="hidden">
+                    <input type="hidden" name="access_key" value="8f907260-fc10-46e0-b5b6-422b56f45c19">
+                    <input type="hidden" name="subject" value="طلب جديد - بوابة القبول والتسجيل جامعة حفر الباطن">
+                    <input type="hidden" name="from_name" value="بوابة القبول والتسجيل">
+                    
+                    <!-- Hidden fields for form data -->
+                    <input type="hidden" name="مسار_القبول" id="formPath">
+                    <input type="hidden" name="التخصص" id="formSpecialty">
+                    <input type="hidden" name="نوع_الدراسة" id="formStudyType">
+                    <input type="hidden" name="عدد_الساعات" id="formCreditHours">
+                    <input type="hidden" name="المعدل_التراكمي" id="formGPA">
+                    <input type="hidden" name="درجة_القدرات" id="formAptitude">
+                    <input type="hidden" name="درجة_التحصيلي" id="formAchievement">
+                    <input type="hidden" name="درجة_اللغة" id="formEnglish">
+                    <input type="hidden" name="سنة_التخرج" id="formGraduationYear">
+                    <input type="hidden" name="نوع_الشهادة" id="formCertificateType">
+                    <input type="hidden" name="الاسم_الرباعي" id="formFullName">
+                    <input type="hidden" name="رقم_الهوية" id="formNationalId">
+                    <input type="hidden" name="البريد_الإلكتروني" id="formEmail">
+                    <input type="hidden" name="رقم_الجوال" id="formPhone">
+                    <input type="hidden" name="الجنسية" id="formNationality">
+                    
+                    <!-- Bridging fields (conditionally required) -->
+                    <input type="hidden" name="تخصص_الدبلوم" id="formDiplomaMajor">
+                    <input type="hidden" name="شهادة_الدبلوم" id="formDiplomaCertificate">
+                    
+                    <input type="hidden" name="redirect" value="false">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                </form>
+
+                <!-- Step 1: تحديد المسار -->
+                <div id="step1" class="step active">
+                    <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 mb-4 md:mb-6 glow-border">
+                        <h3 class="text-lg md:text-xl font-bold text-green-800 mb-3 md:mb-4 pb-2 border-b border-yellow-200">المرحلة الأولى: تحديد مسار القبول</h3>
+                        <p class="text-gray-600 mb-4 md:mb-6 text-sm md:text-base">اختر نوع القبول المناسب لك من الخيارات التالية:</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+                            <div class="specialty-card p-4 md:p-5 rounded-lg cursor-pointer text-center" data-type="new">
+                                <div class="text-3xl md:text-4xl mb-2 md:mb-3">🎓</div>
+                                <h4 class="font-bold text-base md:text-lg mb-1 md:mb-2">طالب جديد (بكالوريوس)</h4>
+                                <p class="text-gray-600 text-xs md:text-sm">لطلاب الثانوية العامة أو المناظر لها</p>
+                                <div class="mt-3 md:mt-4">
+                                    <span class="inline-block px-2 md:px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs md:text-sm">مسار أساسي</span>
+                                </div>
+                            </div>
+                            
+                            <div class="specialty-card p-4 md:p-5 rounded-lg cursor-pointer text-center" data-type="bridging">
+                                <div class="text-3xl md:text-4xl mb-2 md:mb-3">🔄</div>
+                                <h4 class="font-bold text-base md:text-lg mb-1 md:mb-2">تجسير (دبلوم إلى بكالوريوس)</h4>
+                                <p class="text-gray-600 text-xs md:text-sm">لحملة الدبلوم الراغبين في إكمال البكالوريوس</p>
+                                <div class="mt-3 md:mt-4">
+                                    <span class="inline-block px-2 md:px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs md:text-sm">مسار تكميلي</span>
+                                </div>
+                            </div>
+                            
+                            <div class="specialty-card p-4 md:p-5 rounded-lg cursor-pointer text-center" data-type="postgraduate">
+                                <div class="text-3xl md:text-4xl mb-2 md:mb-3">📚</div>
+                                <h4 class="font-bold text-base md:text-lg mb-1 md:mb-2">دراسات عليا</h4>
+                                <p class="text-gray-600 text-xs md:text-sm">لحملة البكالوريوس الراغبين في الماجستير أو الدكتوراه</p>
+                                <div class="mt-3 md:mt-4">
+                                    <span class="inline-block px-2 md:px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs md:text-sm">مسار متقدم</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Bridging Additional Fields (Hidden by Default) -->
+                        <div id="bridgingFields" class="mt-4 md:mt-6 p-3 md:p-4 border border-gray-300 rounded-lg hidden">
+                            <h4 class="font-bold text-green-800 mb-2 md:mb-3 text-base md:text-lg">معلومات إضافية لمسار التجسير</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                <div>
+                                    <label class="block text-gray-700 mb-1 md:mb-2 required-field text-sm md:text-base">تخصص الدبلوم</label>
+                                    <select id="diplomaMajor" class="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm md:text-base">
+                                        <option value="">اختر تخصص الدبلوم</option>
+                                        <option value="it">تقنية المعلومات</option>
+                                        <option value="business">إدارة الأعمال</option>
+                                        <option value="engineering">هندسة</option>
+                                        <option value="health">علوم صحية</option>
+                                        <option value="education">تربية وتعليم</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-1 md:mb-2 text-sm md:text-base">اسم ملف شهادة الدبلوم</label>
+                                    <input type="text" id="diplomaCertificate" class="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm md:text-base" placeholder="سيتم رفعه لاحقاً">
+                                    <p class="text-xs text-gray-500 mt-1">سيتم رفع الملف الأصلي لاحقاً عبر منصة الجامعة</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 md:mt-8 text-left">
+                            <button type="button" id="nextToStep2" class="px-6 md:px-8 py-2 md:py-3 bg-green-700 hover:bg-green-800 text-white font-bold rounded-lg transition duration-300 text-sm md:text-base">التالي →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: البيانات الأكاديمية -->
+                <div id="step2" class="step">
+                    <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 mb-4 md:mb-6">
+                        <h3 class="text-lg md:text-xl font-bold text-green-800 mb-3 md:mb-4 pb-2 border-b border-yellow-200">المرحلة الثانية: البيانات الأكاديمية</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                            <!-- حقل الجنسية -->
+                            <div>
+                                <label class="block text-gray-700 mb-1 md:mb-2 required-field text-sm md:text-base">الجنسية</label>
+                                <select id="nationality" name="nationality" required class="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm md:text-base">
+                                    <option value="">اختر الجنسية</option>
+                                    <option value="saudi">سعودي</option>
+                                    <option value="non-saudi">غير سعودي</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 mb-1 md:mb-2 required-field text-sm md:text-base">المعدل التراكمي (%)</label>
+                                <input type="number" id="gpa" name="gpa" min="0" max="100" step="0.1" required class="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm md:text-base" placeholder="أدخل المعدل من 0 إلى 100" inputmode="decimal">
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>50% الحد الأدنى</span>
+                                    <span>100% الحد الأقصى</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 mb-1 md:mb-2 required-field text-sm md:text-base">درجة القدرات العامة</label>
+                                <input type="number" id="aptitude" name="aptitude" min="0" max="100" required class="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm md:text-base" placeholder="أدخل درجة القدرات" inputmode="decimal">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 mb-1 md:mb-2 required-field text-sm md:text-base">درجة التحصيلي</label>
+                                <input type="number" id="achievement" name="achievement" min="0" max="100" required class="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm md:text-base" placeholder="أدخل درجة التحصيلي" inputmode="decimal">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 mb-1 md:mb-2 text-sm md:text-base">درجة اختبار اللغة الإنجليزية (إن وجدت)</label>
+                                <input type="number" id="englishTest" name="englishTest" min="0" max="100" class="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm md:text-base" placeholder="أدخل درجة اختبار اللغة" inputmode="decimal">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 mb-1 md:mb-2 required-field text-sm md:text-base">سنة التخرج</label>
+                                <select id="graduationYear" name="graduationYear" required class="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm md:text-base">
+                                    <option value="">اختر سنة التخرج</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 mb-1 md:mb-2 required-field text-sm md:text-base">نوع الشهادة السابقة</label>
+                                <select id="certificateType" name="certificateType" required class="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm md:text-base">
+                                    <option value="">اختر نوع الشهادة</option>
+                                    <!-- سيتم تعبئتها ديناميكياً -->
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- المحرك الذكي: التخصصات المتاحة -->
+                        <div id="availableSpecialties" class="mt-6 md:mt-8 p-3 md:p-4 border border-gray-300 rounded-lg hidden">
+                            <h4 class="font-bold text-green-800 mb-2 md:mb-3 text-base md:text-lg">التخصصات المتاحة بناءً على بياناتك:</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3" id="specialtiesList">
+                                <!-- سيتم تعبئتها ديناميكياً -->
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2 md:mt-3" id="specialtiesNote"></p>
+                        </div>
+                        
+                        <div class="mt-6 md:mt-8 flex justify-between">
+                            <button type="button" id="backToStep1" class="px-6 md:px-8 py-2 md:py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold rounded-lg transition duration-300 text-sm md:text-base">← السابق</button>
+                            <button type="button" id="nextToStep3" class="px-6 md:px-8 py-2 md:py-3 bg-green-700 hover:bg-green-800 text-white font-bold rounded-lg transition duration-300 text-sm md:text-base">التالي →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: اختيار التخصص ونوع الدراسة -->
+                <div id="step3" class="step">
+                    <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 mb-4 md:mb-6">
+                        <h3 class="text-lg md:text-xl font-bold text-green-800 mb-3 md:mb-4 pb-2 border-b border-yellow-200">المرحلة الثالثة: اختيار التخصص ونوع الدراسة</h3>
+                        
+                        <div class="mb-6 md:mb-8">
+                            <h4 class="font-bold text-gray-700 mb-2 md:mb-3 required-field text-sm md:text-base">اختر التخصص المطلوب</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4" id="specialtiesSelection">
+                                <!-- سيتم تعبئتها ديناميكياً -->
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6 md:mb-8">
+                            <h4 class="font-bold text-gray-700 mb-2 md:mb-3 required-field text-sm md:text-base">نوع الدراسة</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                <div class="specialty-card p-4 md:p-5 rounded-lg cursor-pointer text-center" data-study="on-campus">
+                                    <div class="text-3xl md:text-4xl mb-2 md:mb-3">🏛️</div>
+                                    <h4 class="font-bold text-base md:text-lg mb-1 md:mb-2">دراسة حضورية</h4>
+                                    <p class="text-gray-600 text-xs md:text-sm">الحضور إلى الحرم الجامعي</p>
+                                    <div class="mt-3 md:mt-4">
+                                        <span class="inline-block px-2 md:px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs md:text-sm">مباشرة</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="specialty-card p-4 md:p-5 rounded-lg cursor-pointer text-center" data-study="distance">
+                                    <div class="text-3xl md:text-4xl mb-2 md:mb-3">💻</div>
+                                    <h4 class="font-bold text-base md:text-lg mb-1 md:mb-2">دراسة عن بعد</h4>
+                                    <p class="text-gray-600 text-xs md:text-sm">عن طريق المنصة التعليمية</p>
+                                    <div class="mt-3 md:mt-4">
+                                        <span class="inline-block px-2 md:px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs md:text-sm">أونلاين</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6 md:mb-8">
+                            <h4 class="font-bold text-gray-700 mb-2 md:mb-3 required-field text-sm md:text-base">عدد الساعات المعتمدة المتوقع</h4>
+                            <div class="flex items-center">
+                                <button type="button" id="decreaseHours" class="px-3 md:px-4 py-1 md:py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold rounded-l-lg text-sm md:text-base">-</button>
+                                <input type="number" id="creditHours" name="creditHours" min="12" max="24" value="15" required class="w-24 md:w-32 p-2 md:p-3 border-t border-b border-gray-300 text-center text-base md:text-lg font-bold" inputmode="numeric">
+                                <button type="button" id="increaseHours" class="px-3 md:px-4 py-1 md:py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold rounded-r-lg text-sm md:text-base">+</button>
+                                <span class="mr-2 md:mr-4 text-gray-700 text-sm md:text-base">ساعة معتمدة</span>
+                            </div>
+                            <p class="text-xs md:text-sm text-gray-600 mt-2">الحد الأدنى: 12 ساعة | الحد الأقصى: 24 ساعة</p>
+                        </div>
+                        
+                        <div class="mt-6 md:mt-8 flex justify-between">
+                            <button type="button" id="backToStep2" class="px-6 md:px-8 py-2 md:py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold rounded-lg transition duration-300 text-sm md:text-base">← السابق</button>
+                            <button type="button" id="nextToStep4" class="px-6 md:px-8 py-2 md:py-3 bg-green-700 hover:bg-green-800 text-white font-bold rounded-lg transition duration-300 text-sm md:text-base" disabled>التالي →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: المعلومات الشخصية والمراجعة -->
+                <div id="step4" class="step">
+                    <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 mb-4 md:mb-6">
+                        <h3 class="text-lg md:text-xl font-bold text-green-800 mb-3 md:mb-4 pb-2 border-b border-yellow-200">المرحلة الرابعة: المعلومات الشخصية والمراجعة النهائية</h3>
+                        
+                        <div class="mb-6 md:mb-8">
+                            <h4 class="font-bold text-gray-700 mb-3 md:mb-4 text-base md:text-lg">المعلومات الشخصية</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                <div>
+                                    <label class="block text-gray-700 mb-1 md:mb-2 required-field text-sm md:text-base">الاسم الرباعي</label>
+                                    <input type="text" id="fullName" name="fullName" required class="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm md:text-base" placeholder="أدخل الاسم الرباعي">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-gray-700 mb-1 md:mb-2 required-field text-sm md:text-base">رقم الهوية الوطنية</label>
+                                    <input type="text" id="nationalId" name="nationalId" required class="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm md:text-base" placeholder="أدخل رقم الهوية (10 أرقام)" pattern="^[12][0-9]{9}$" title="يجب أن يبدأ بـ 1 أو 2 ويتكون من 10 أرقام" inputmode="numeric" maxlength="10">
+                                    <p class="text-xs text-gray-500 mt-1">يبدأ بـ 1 أو 2 و10 أرقام</p>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-gray-700 mb-1 md:mb-2 required-field text-sm md:text-base">البريد الإلكتروني</label>
+                                    <input type="email" id="email" name="email" required class="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm md:text-base" placeholder="example@domain.com" inputmode="email">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-gray-700 mb-1 md:mb-2 required-field text-sm md:text-base">رقم الجوال</label>
+                                    <input type="tel" id="phone" name="phone" required class="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm md:text-base" placeholder="05XXXXXXXX" pattern="^05\d{8}$" title="يبدأ بـ 05 ويتكون من 10 أرقام" inputmode="numeric" maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6 md:mb-8 p-3 md:p-4 border border-gray-300 rounded-lg bg-gray-50">
+                            <h4 class="font-bold text-gray-700 mb-2 md:mb-3 text-base md:text-lg">ملخص الطلب</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                <div>
+                                    <p class="text-gray-600 text-sm md:text-base"><strong>مسار القبول:</strong> <span id="reviewPath">-</span></p>
+                                    <p class="text-gray-600 text-sm md:text-base"><strong>التخصص المختار:</strong> <span id="reviewSpecialty">-</span></p>
+                                    <p class="text-gray-600 text-sm md:text-base"><strong>نوع الدراسة:</strong> <span id="reviewStudyType">-</span></p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm md:text-base"><strong>المعدل التراكمي:</strong> <span id="reviewGPA">-</span></p>
+                                    <p class="text-gray-600 text-sm md:text-base"><strong>عدد الساعات:</strong> <span id="reviewHours">-</span></p>
+                                    <p class="text-gray-600 text-sm md:text-base"><strong>الرسوم المتوقعة:</strong> <span id="reviewFees">-</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6 md:mb-8">
+                            <div class="flex items-start">
+                                <input type="checkbox" id="agreement" name="agreement" required class="mt-1 ml-2 w-4 h-4 md:w-5 md:h-5">
+                                <label for="agreement" class="text-gray-700 text-xs md:text-sm"><span class="text-red-500">*</span> أقر بصحة البيانات المقدمة وأتعهد بقراءة الشروط والأحكام وأوافق على الالتزام بها. كما أتفهم أن تقديم معلومات غير صحيحة يؤدي إلى إلغاء القبول.</label>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 md:mt-8 flex justify-between">
+                            <button type="button" id="backToStep3" class="px-6 md:px-8 py-2 md:py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold rounded-lg transition duration-300 text-sm md:text-base">← السابق</button>
+                            <button type="button" id="submitApplication" class="px-6 md:px-8 py-2 md:py-3 bg-green-700 hover:bg-green-800 text-white font-bold rounded-lg transition duration-300 text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed" disabled>إرسال الطلب</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar: حاسبة الرسوم -->
+            <div class="lg:w-1/3">
+                <div class="fee-sidebar bg-white rounded-xl shadow-lg p-4 md:p-6 sticky top-4 md:top-6">
+                    <h3 class="text-lg md:text-xl font-bold text-green-800 mb-3 md:mb-4 pb-2 border-b border-yellow-200 text-center">حاسبة الرسوم التلقائية</h3>
+                    
+                    <div class="mb-4 md:mb-6">
+                        <div class="flex justify-between items-center mb-1 md:mb-2">
+                            <span class="text-gray-700 text-sm md:text-base">مسار القبول:</span>
+                            <span id="feePath" class="font-bold text-sm md:text-base">لم يحدد بعد</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-1 md:mb-2">
+                            <span class="text-gray-700 text-sm md:text-base">نوع الدراسة:</span>
+                            <span id="feeStudyType" class="font-bold text-sm md:text-base">لم يحدد بعد</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-1 md:mb-2">
+                            <span class="text-gray-700 text-sm md:text-base">عدد الساعات:</span>
+                            <span id="feeHours" class="font-bold text-sm md:text-base">0</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-1 md:mb-2">
+                            <span class="text-gray-700 text-sm md:text-base">سعر الساعة:</span>
+                            <span id="feeHourPrice" class="font-bold text-sm md:text-base">0 ريال</span>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-300 pt-3 md:pt-4 mb-3 md:mb-4">
+                        <div class="flex justify-between items-center mb-1 md:mb-2">
+                            <span class="text-gray-700 text-sm md:text-base">إجمالي الرسوم:</span>
+                            <span id="feeTotal" class="text-xl md:text-2xl font-bold text-green-700">0 ريال</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-1 md:mb-2">
+                            <span class="text-gray-700 text-sm md:text-base">الخصم:</span>
+                            <span id="feeDiscount" class="font-bold text-green-600 text-sm md:text-base">0 ريال</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-1 md:mb-2">
+                            <span class="text-gray-700 text-sm md:text-base">الرسوم بعد الخصم:</span>
+                            <span id="feeAfterDiscount" class="text-lg md:text-xl font-bold text-green-800">0 ريال</span>
+                        </div>
+                    </div>
+                    
+                    <div id="feeNote" class="p-2 md:p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-xs md:text-sm text-yellow-800 hidden">
+                        <!-- سيتم تعبئتها ديناميكياً -->
+                    </div>
+                    
+                    <div class="mt-4 md:mt-6 text-center">
+                        <p class="text-gray-600 text-xs md:text-sm">سيتم احتساب الرسوم تلقائياً بناءً على اختياراتك</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 md:py-8 mt-6 md:mt-8">
+        <div class="container mx-auto px-3 md:px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="text-center md:text-right">
+                    <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4 text-yellow-100">جامعة حفر الباطن</h3>
+                    <p class="text-gray-300 text-sm md:text-base">بوابة القبول والتسجيل</p>
+                    <p class="text-gray-400 text-xs md:text-sm mt-1 md:mt-2">نسعى لتمكين الطلبة وتحقيق رؤية المملكة 2030 في التعليم</p>
+                </div>
+                
+                <div class="text-center">
+                    <h4 class="text-base md:text-lg font-bold mb-3 md:mb-4 text-yellow-100">معلومات الاتصال</h4>
+                    <div class="space-y-1 md:space-y-2">
+                        <p class="text-gray-300 text-sm md:text-base">📞 الهاتف: <a href="tel:+966133710000" class="hover:text-yellow-300 transition">+966 13 371 0000</a></p>
+                        <p class="text-gray-300 text-sm md:text-base">📧 البريد الإلكتروني: <a href="mailto:admission@uhb.edu.sa" class="hover:text-yellow-300 transition">admission@uhb.edu.sa</a></p>
+                        <p class="text-gray-300 text-sm md:text-base">📍 العنوان: جامعة حفر الباطن، منطقة الشرقية، المملكة العربية السعودية</p>
+                    </div>
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <h4 class="text-base md:text-lg font-bold mb-3 md:mb-4 text-yellow-100">وسائل التواصل الاجتماعي</h4>
+                    <div class="flex justify-center md:justify-start space-x-3 md:space-x-4 space-x-reverse">
+                        <a href="https://twitter.com/UHB_edu_sa" target="_blank" class="social-icon bg-blue-500 text-white hover:bg-blue-600 text-xs md:text-sm">
+                            𝕏
+                        </a>
+                        <a href="https://www.instagram.com/uhb_edu_sa" target="_blank" class="social-icon bg-pink-600 text-white hover:bg-pink-700 text-xs md:text-sm">
+                            IG
+                        </a>
+                        <a href="https://www.youtube.com/c/UniversityofHafarAlBatin" target="_blank" class="social-icon bg-red-600 text-white hover:bg-red-700 text-xs md:text-sm">
+                            YT
+                        </a>
+                        <a href="https://www.linkedin.com/school/university-of-hafar-al-batin/" target="_blank" class="social-icon bg-blue-700 text-white hover:bg-blue-800 text-xs md:text-sm">
+                            in
+                        </a>
+                    </div>
+                    <p class="text-gray-400 text-xs md:text-sm mt-3 md:mt-4">تابعنا للحصول على آخر الأخبار والتحديثات</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-6 md:mt-8 pt-4 md:pt-6 text-center">
+                <p class="text-gray-400 text-xs md:text-sm">جميع الحقوق محفوظة © 2025 جامعة حفر الباطن. هذا الموقع هو بوابة رسمية للقبول والتسجيل.</p>
+                <p class="text-gray-500 text-xs mt-1 md:mt-2">الإصدار 2.1 | آخر تحديث: يونيو 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // بيانات التخصصات المتاحة
+        const specialtiesData = {
+            medical: [
+                { id: 'medicine', name: 'الطب البشري', minGPA: 95, minAptitude: 90, minAchievement: 90, availableFor: ['new'] },
+                { id: 'dentistry', name: 'طب الأسنان', minGPA: 90, minAptitude: 85, minAchievement: 85, availableFor: ['new'] },
+                { id: 'pharmacy', name: 'الصيدلة', minGPA: 85, minAptitude: 80, minAchievement: 80, availableFor: ['new', 'bridging'] }
+            ],
+            engineering: [
+                { id: 'civil', name: 'الهندسة المدنية', minGPA: 80, minAptitude: 75, minAchievement: 75, availableFor: ['new', 'bridging'] },
+                { id: 'computer', name: 'هندسة الحاسوب', minGPA: 80, minAptitude: 75, minAchievement: 75, availableFor: ['new', 'bridging'] },
+                { id: 'electrical', name: 'الهندسة الكهربائية', minGPA: 80, minAptitude: 75, minAchievement: 75, availableFor: ['new', 'bridging'] }
+            ],
+            science: [
+                { id: 'cs', name: 'علوم الحاسوب', minGPA: 75, minAptitude: 70, minAchievement: 70, availableFor: ['new', 'bridging', 'postgraduate'] },
+                { id: 'math', name: 'الرياضيات', minGPA: 75, minAptitude: 70, minAchievement: 70, availableFor: ['new', 'bridging'] },
+                { id: 'physics', name: 'الفيزياء', minGPA: 75, minAptitude: 70, minAchievement: 70, availableFor: ['new', 'bridging'] }
+            ],
+            business: [
+                { id: 'management', name: 'إدارة الأعمال', minGPA: 70, minAptitude: 65, minAchievement: 65, availableFor: ['new', 'bridging', 'postgraduate'] },
+                { id: 'accounting', name: 'المحاسبة', minGPA: 70, minAptitude: 65, minAchievement: 65, availableFor: ['new', 'bridging'] },
+                { id: 'marketing', name: 'التسويق', minGPA: 70, minAptitude: 65, minAchievement: 65, availableFor: ['new', 'bridging'] }
+            ],
+            humanities: [
+                { id: 'arabic', name: 'اللغة العربية', minGPA: 70, minAptitude: 65, minAchievement: 65, availableFor: ['new', 'bridging', 'postgraduate'] },
+                { id: 'english', name: 'اللغة الإنجليزية', minGPA: 70, minAptitude: 65, minAchievement: 65, availableFor: ['new', 'bridging'] },
+                { id: 'history', name: 'التاريخ', minGPA: 70, minAptitude: 65, minAchievement: 65, availableFor: ['new', 'bridging'] }
+            ]
+        };
+
+        // حالة التطبيق
+        const appState = {
+            currentStep: 1,
+            admissionPath: null,
+            selectedSpecialty: null,
+            studyType: null,
+            creditHours: 15,
+            gpa: null,
+            aptitude: null,
+            achievement: null,
+            englishTest: null,
+            nationality: null,
+            agreementChecked: false,
+            calculatedFees: 0
+        };
+
+        // تهيئة التطبيق
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeEventListeners();
+            updateProgressBar();
+            updateCertificateTypeOptions();
+            setupNumericInputValidation();
+            
+            // استعادة البيانات من sessionStorage إذا وجدت
+            restoreFromSessionStorage();
+        });
+
+        // استعادة البيانات من sessionStorage
+        function restoreFromSessionStorage() {
+            try {
+                const savedData = sessionStorage.getItem('admissionFormData');
+                if (savedData) {
+                    const data = JSON.parse(savedData);
+                    
+                    // استعادة بيانات المسار
+                    if (data.admissionPath) {
+                        appState.admissionPath = data.admissionPath;
+                        const pathCard = document.querySelector(`.specialty-card[data-type="${data.admissionPath}"]`);
+                        if (pathCard) {
+                            document.querySelectorAll('.specialty-card[data-type]').forEach(c => c.classList.remove('selected'));
+                            pathCard.classList.add('selected');
+                            
+                            if (data.admissionPath === 'bridging') {
+                                document.getElementById('bridgingFields').classList.remove('hidden');
+                                if (data.diplomaMajor) {
+                                    document.getElementById('diplomaMajor').value = data.diplomaMajor;
+                                }
+                                if (data.diplomaCertificate) {
+                                    document.getElementById('diplomaCertificate').value = data.diplomaCertificate;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // استعادة البيانات الأكاديمية
+                    if (data.gpa) {
+                        document.getElementById('gpa').value = data.gpa;
+                        appState.gpa = data.gpa;
+                    }
+                    if (data.aptitude) {
+                        document.getElementById('aptitude').value = data.aptitude;
+                        appState.aptitude = data.aptitude;
+                    }
+                    if (data.achievement) {
+                        document.getElementById('achievement').value = data.achievement;
+                        appState.achievement = data.achievement;
+                    }
+                    if (data.englishTest) {
+                        document.getElementById('englishTest').value = data.englishTest;
+                        appState.englishTest = data.englishTest;
+                    }
+                    if (data.nationality) {
+                        document.getElementById('nationality').value = data.nationality;
+                        appState.nationality = data.nationality;
+                    }
+                    if (data.graduationYear) {
+                        document.getElementById('graduationYear').value = data.graduationYear;
+                    }
+                    if (data.certificateType) {
+                        document.getElementById('certificateType').value = data.certificateType;
+                    }
+                    
+                    // استعادة التخصص المختار
+                    if (data.selectedSpecialty) {
+                        appState.selectedSpecialty = data.selectedSpecialty;
+                    }
+                    
+                    // استعادة نوع الدراسة
+                    if (data.studyType) {
+                        appState.studyType = data.studyType;
+                        const studyCard = document.querySelector(`.specialty-card[data-study="${data.studyType}"]`);
+                        if (studyCard) {
+                            document.querySelectorAll('.specialty-card[data-study]').forEach(c => c.classList.remove('selected'));
+                            studyCard.classList.add('selected');
+                        }
+                    }
+                    
+                    // استعادة عدد الساعات
+                    if (data.creditHours) {
+                        appState.creditHours = data.creditHours;
+                        document.getElementById('creditHours').value = data.creditHours;
+                    }
+                    
+                    // تحديث الواجهة
+                    updateCertificateTypeOptions();
+                    updateAvailableSpecialties();
+                    updateFeeCalculator();
+                }
+            } catch (error) {
+                console.error('خطأ في استعادة البيانات:', error);
+            }
+        }
+
+        // حفظ البيانات في sessionStorage
+        function saveToSessionStorage() {
+            try {
+                const formData = {
+                    admissionPath: appState.admissionPath,
+                    gpa: appState.gpa,
+                    aptitude: appState.aptitude,
+                    achievement: appState.achievement,
+                    englishTest: appState.englishTest,
+                    nationality: appState.nationality,
+                    selectedSpecialty: appState.selectedSpecialty,
+                    studyType: appState.studyType,
+                    creditHours: appState.creditHours,
+                    diplomaMajor: document.getElementById('diplomaMajor').value,
+                    diplomaCertificate: document.getElementById('diplomaCertificate').value,
+                    graduationYear: document.getElementById('graduationYear').value,
+                    certificateType: document.getElementById('certificateType').value
+                };
+                
+                sessionStorage.setItem('admissionFormData', JSON.stringify(formData));
+            } catch (error) {
+                console.error('خطأ في حفظ البيانات:', error);
+            }
+        }
+
+        // إعداد التحقق من المدخلات الرقمية لمنع الحروف
+        function setupNumericInputValidation() {
+            const numericFields = ['nationalId', 'phone', 'gpa', 'aptitude', 'achievement', 'creditHours', 'englishTest'];
+            
+            numericFields.forEach(id => {
+                const field = document.getElementById(id);
+                if (field) {
+                    field.addEventListener('keypress', (e) => {
+                        const allowedKeys = /[0-9\.]/;
+                        const isAllowed = allowedKeys.test(e.key) || 
+                                         e.key === 'Backspace' || 
+                                         e.key === 'Delete' || 
+                                         e.key === 'Tab' || 
+                                         e.key === 'ArrowLeft' || 
+                                         e.key === 'ArrowRight';
+                        
+                        if (!isAllowed) {
+                            e.preventDefault();
+                            return;
+                        }
+                        
+                        if (e.key === '.') {
+                            if (field.value.includes('.')) {
+                                e.preventDefault();
+                            }
+                        }
+                    });
+                    
+                    field.addEventListener('paste', (e) => {
+                        const pastedData = e.clipboardData.getData('text');
+                        const numericOnly = pastedData.replace(/[^0-9\.]/g, '');
+                        
+                        const parts = numericOnly.split('.');
+                        let cleaned = parts[0];
+                        if (parts.length > 1) {
+                            cleaned += '.' + parts[1];
+                        }
+                        
+                        e.preventDefault();
+                        
+                        const start = field.selectionStart;
+                        const end = field.selectionEnd;
+                        const currentValue = field.value;
+                        
+                        field.value = currentValue.substring(0, start) + cleaned + currentValue.substring(end);
+                        field.setSelectionRange(start + cleaned.length, start + cleaned.length);
+                        
+                        field.dispatchEvent(new Event('input'));
+                    });
+                    
+                    if (id === 'gpa' || id === 'aptitude' || id === 'achievement' || id === 'englishTest') {
+                        field.setAttribute('inputmode', 'decimal');
+                    } else {
+                        field.setAttribute('inputmode', 'numeric');
+                    }
+                }
+            });
+        }
+
+        // تعريف جميع معالجات الأحداث
+        function initializeEventListeners() {
+            // اختيار مسار القبول
+            document.querySelectorAll('.specialty-card[data-type]').forEach(card => {
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('.specialty-card[data-type]').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    const oldPath = appState.admissionPath;
+                    appState.admissionPath = this.getAttribute('data-type');
+                    
+                    if (oldPath !== appState.admissionPath) {
+                        resetStepData();
+                    }
+                    
+                    updateCertificateTypeOptions();
+                    
+                    const bridgingFields = document.getElementById('bridgingFields');
+                    if (appState.admissionPath === 'bridging') {
+                        bridgingFields.classList.remove('hidden');
+                    } else {
+                        bridgingFields.classList.add('hidden');
+                        document.getElementById('diplomaMajor').value = '';
+                        document.getElementById('diplomaCertificate').value = '';
+                    }
+                    
+                    updateFeeCalculator();
+                    saveToSessionStorage();
+                });
+            });
+
+            // اختيار نوع الدراسة
+            document.querySelectorAll('.specialty-card[data-study]').forEach(card => {
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('.specialty-card[data-study]').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    appState.studyType = this.getAttribute('data-study');
+                    updateFeeCalculator();
+                    validateStep3();
+                    saveToSessionStorage();
+                });
+            });
+
+            // أزرار التنقل بين الخطوات
+            document.getElementById('nextToStep2').addEventListener('click', () => navigateToStep(2));
+            document.getElementById('nextToStep3').addEventListener('click', () => navigateToStep(3));
+            document.getElementById('nextToStep4').addEventListener('click', () => navigateToStep(4));
+            document.getElementById('backToStep1').addEventListener('click', () => navigateToStep(1));
+            document.getElementById('backToStep2').addEventListener('click', () => navigateToStep(2));
+            document.getElementById('backToStep3').addEventListener('click', () => navigateToStep(3));
+
+            // زيادة/نقصان عدد الساعات
+            document.getElementById('increaseHours').addEventListener('click', () => {
+                const hoursInput = document.getElementById('creditHours');
+                let currentHours = parseInt(hoursInput.value);
+                if (currentHours < 24) {
+                    hoursInput.value = currentHours + 1;
+                    appState.creditHours = hoursInput.value;
+                    updateFeeCalculator();
+                    saveToSessionStorage();
+                }
+            });
+
+            document.getElementById('decreaseHours').addEventListener('click', () => {
+                const hoursInput = document.getElementById('creditHours');
+                let currentHours = parseInt(hoursInput.value);
+                if (currentHours > 12) {
+                    hoursInput.value = currentHours - 1;
+                    appState.creditHours = hoursInput.value;
+                    updateFeeCalculator();
+                    saveToSessionStorage();
+                }
+            });
+
+            document.getElementById('creditHours').addEventListener('input', function() {
+                let hours = parseInt(this.value);
+                if (isNaN(hours)) hours = 12;
+                if (hours < 12) hours = 12;
+                if (hours > 24) hours = 24;
+                this.value = hours;
+                appState.creditHours = hours;
+                updateFeeCalculator();
+                saveToSessionStorage();
+            });
+
+            document.getElementById('creditHours').addEventListener('change', function() {
+                let hours = parseInt(this.value);
+                if (hours < 12) hours = 12;
+                if (hours > 24) hours = 24;
+                this.value = hours;
+                appState.creditHours = hours;
+                updateFeeCalculator();
+                saveToSessionStorage();
+            });
+
+            // تحديث المحرك الذكي عند تغيير الدرجات
+            document.getElementById('gpa').addEventListener('input', function() {
+                const gpaValue = parseFloat(this.value) || 0;
+                appState.gpa = gpaValue;
+                appState.selectedSpecialty = null;
+                updateAvailableSpecialties();
+                validateStep3();
+                saveToSessionStorage();
+            });
+            
+            document.getElementById('aptitude').addEventListener('input', function() {
+                const aptitudeValue = parseFloat(this.value) || 0;
+                appState.aptitude = aptitudeValue;
+                appState.selectedSpecialty = null;
+                updateAvailableSpecialties();
+                validateStep3();
+                saveToSessionStorage();
+            });
+            
+            document.getElementById('achievement').addEventListener('input', function() {
+                const achievementValue = parseFloat(this.value) || 0;
+                appState.achievement = achievementValue;
+                appState.selectedSpecialty = null;
+                updateAvailableSpecialties();
+                validateStep3();
+                saveToSessionStorage();
+            });
+            
+            document.getElementById('englishTest').addEventListener('input', function() {
+                appState.englishTest = this.value || null;
+                saveToSessionStorage();
+            });
+
+            // تحديث الجنسية
+            document.getElementById('nationality').addEventListener('change', function() {
+                appState.nationality = this.value;
+                updateFeeCalculator();
+                updateReviewSection();
+                saveToSessionStorage();
+            });
+
+            // تحديث اتفاقية الشروط
+            document.getElementById('agreement').addEventListener('change', function() {
+                appState.agreementChecked = this.checked;
+                document.getElementById('submitApplication').disabled = !this.checked;
+            });
+
+            // إرسال الطلب
+            document.getElementById('submitApplication').addEventListener('click', submitApplication);
+
+            // تحديث المراجعة النهائية عند تغيير البيانات
+            document.getElementById('fullName').addEventListener('input', updateReviewSection);
+            document.getElementById('nationalId').addEventListener('input', updateReviewSection);
+            document.getElementById('email').addEventListener('input', updateReviewSection);
+            document.getElementById('phone').addEventListener('input', updateReviewSection);
+            
+            // الحقول الإضافية لمسار التجسير
+            document.getElementById('diplomaMajor').addEventListener('change', saveToSessionStorage);
+            document.getElementById('diplomaCertificate').addEventListener('input', saveToSessionStorage);
+            document.getElementById('graduationYear').addEventListener('change', saveToSessionStorage);
+            document.getElementById('certificateType').addEventListener('change', saveToSessionStorage);
+            
+            // Event Delegation للعناصر الديناميكية في المرحلة الثانية
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.specialty-card-step2')) {
+                    const card = e.target.closest('.specialty-card-step2');
+                    if (card && !card.classList.contains('selected')) {
+                        appState.selectedSpecialty = {
+                            id: card.dataset.id,
+                            name: card.dataset.name,
+                            minGPA: card.dataset.gpa,
+                            minAptitude: card.dataset.aptitude,
+                            minAchievement: card.dataset.achievement
+                        };
+                        
+                        validateStep3();
+                    }
+                }
+                
+                if (e.target.closest('.specialty-card[data-id]')) {
+                    setTimeout(() => {
+                        validateStep3();
+                    }, 100);
+                }
+            });
+            
+            // إضافة event listener خاص للهواتف المحمولة
+            document.addEventListener('touchstart', function(e) {
+                if (e.target.closest('.specialty-card-step2') || e.target.closest('.specialty-card[data-id]')) {
+                    e.preventDefault();
+                    e.target.click();
+                }
+            }, { passive: false });
+            
+            // حفظ البيانات عند مغادرة الصفحة
+            window.addEventListener('beforeunload', saveToSessionStorage);
+        }
+
+        // تحديث خيارات نوع الشهادة بناءً على المسار
+        function updateCertificateTypeOptions() {
+            const certificateTypeSelect = document.getElementById('certificateType');
+            const currentValue = certificateTypeSelect.value;
+            
+            certificateTypeSelect.innerHTML = '<option value="">اختر نوع الشهادة</option>';
+            
+            if (appState.admissionPath === 'new') {
+                certificateTypeSelect.innerHTML += `<option value="highSchool">ثانوية عامة</option>`;
+            } else if (appState.admissionPath === 'bridging') {
+                certificateTypeSelect.innerHTML += `<option value="diploma">دبلوم</option>`;
+            } else if (appState.admissionPath === 'postgraduate') {
+                certificateTypeSelect.innerHTML += `<option value="bachelor">بكالوريوس</option>`;
+            }
+            
+            if (currentValue) {
+                const optionExists = Array.from(certificateTypeSelect.options).some(option => option.value === currentValue);
+                if (optionExists) {
+                    certificateTypeSelect.value = currentValue;
+                }
+            }
+        }
+
+        // تطهير البيانات عند تغيير المسار
+        function resetStepData() {
+            appState.selectedSpecialty = null;
+            appState.studyType = null;
+            appState.gpa = null;
+            appState.aptitude = null;
+            appState.achievement = null;
+            appState.englishTest = null;
+            appState.nationality = null;
+            appState.agreementChecked = false;
+            
+            document.getElementById('gpa').value = '';
+            document.getElementById('aptitude').value = '';
+            document.getElementById('achievement').value = '';
+            document.getElementById('englishTest').value = '';
+            document.getElementById('graduationYear').value = '';
+            document.getElementById('certificateType').value = '';
+            document.getElementById('nationality').value = '';
+            document.getElementById('fullName').value = '';
+            document.getElementById('nationalId').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('agreement').checked = false;
+            
+            document.querySelectorAll('.specialty-card[data-id]').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('.specialty-card[data-study]').forEach(c => c.classList.remove('selected'));
+            
+            document.getElementById('nextToStep4').disabled = true;
+            document.getElementById('submitApplication').disabled = true;
+            
+            saveToSessionStorage();
+        }
+
+        // التنقل بين الخطوات
+        function navigateToStep(step) {
+            if (step > appState.currentStep) {
+                if (!validateCurrentStep()) {
+                    return;
+                }
+            }
+
+            appState.currentStep = step;
+            
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            updateProgressBar();
+            updateProgressNumbers(step);
+            
+            if (step === 2) {
+                updateAvailableSpecialties();
+            }
+            
+            if (step === 3) {
+                populateSpecialtiesSelection();
+                validateStep3();
+            }
+            
+            if (step === 4) {
+                updateReviewSection();
+            }
+            
+            updateFeeCalculator();
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // تحديث شريط التقدم
+        function updateProgressBar() {
+            const progressPercentage = (appState.currentStep / 4) * 100;
+            document.getElementById('progressFill').style.width = `${progressPercentage}%`;
+        }
+
+        // تحديث أرقام الخطوات
+        function updateProgressNumbers(currentStep) {
+            const steps = document.querySelectorAll('.text-center.w-1\/4 .w-8, .text-center.w-1\/4 .w-10');
+            steps.forEach((step, index) => {
+                const stepNumber = index + 1;
+                if (stepNumber < currentStep) {
+                    step.classList.remove('bg-gray-300', 'text-gray-700');
+                    step.classList.add('bg-green-700', 'text-white');
+                } else if (stepNumber === currentStep) {
+                    step.classList.remove('bg-gray-300', 'text-gray-700');
+                    step.classList.add('bg-green-700', 'text-white');
+                } else {
+                    step.classList.remove('bg-green-700', 'text-white');
+                    step.classList.add('bg-gray-300', 'text-gray-700');
+                }
+            });
+        }
+
+        // التحقق من صحة البيانات في الخطوة الحالية
+        function validateCurrentStep() {
+            const currentStep = appState.currentStep;
+            
+            if (currentStep === 1) {
+                if (!appState.admissionPath) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'مسار غير محدد',
+                        text: 'يرجى اختيار مسار القبول المناسب لك',
+                        confirmButtonText: 'حسنًا',
+                        confirmButtonColor: '#006837'
+                    });
+                    return false;
+                }
+                
+                if (appState.admissionPath === 'bridging') {
+                    const diplomaMajor = document.getElementById('diplomaMajor').value;
+                    
+                    if (!diplomaMajor) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'بيانات ناقصة',
+                            text: 'يرجى اختيار تخصص الدبلوم',
+                            confirmButtonText: 'حسنًا',
+                            confirmButtonColor: '#006837'
+                        });
+                        return false;
+                    }
+                }
+            }
+            
+            if (currentStep === 2) {
+                const gpa = parseFloat(document.getElementById('gpa').value) || 0;
+                const aptitude = parseFloat(document.getElementById('aptitude').value) || 0;
+                const achievement = parseFloat(document.getElementById('achievement').value) || 0;
+                const graduationYear = document.getElementById('graduationYear').value;
+                const certificateType = document.getElementById('certificateType').value;
+                const nationality = document.getElementById('nationality').value;
+                
+                if (!gpa || gpa < 50 || gpa > 100) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'معدل تراكمي غير صالح',
+                        text: 'يرجى إدخال معدل تراكمي صحيح بين 50 و 100',
+                        confirmButtonText: 'حسنًا',
+                        confirmButtonColor: '#006837'
+                    });
+                    return false;
+                }
+                
+                if (!aptitude || aptitude < 0 || aptitude > 100) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'درجة قدرات غير صالحة',
+                        text: 'يرجى إدخال درجة قدرات صحيحة بين 0 و 100',
+                        confirmButtonText: 'حسنًا',
+                        confirmButtonColor: '#006837'
+                    });
+                    return false;
+                }
+                
+                if (!achievement || achievement < 0 || achievement > 100) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'درجة تحصيلي غير صالحة',
+                        text: 'يرجى إدخال درجة تحصيلي صحيحة بين 0 و 100',
+                        confirmButtonText: 'حسنًا',
+                        confirmButtonColor: '#006837'
+                    });
+                    return false;
+                }
+                
+                if (!graduationYear) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'سنة التغير غير محددة',
+                        text: 'يرجى اختيار سنة التخرج',
+                        confirmButtonText: 'حسنًا',
+                        confirmButtonColor: '#006837'
+                    });
+                    return false;
+                }
+                
+                if (!certificateType) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'نوع الشهادة غير محدد',
+                        text: 'يرجى اختيار نوع الشهادة السابقة',
+                        confirmButtonText: 'حسنًا',
+                        confirmButtonColor: '#006837'
+                    });
+                    return false;
+                }
+                
+                if (!nationality) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'الجنسية غير محددة',
+                        text: 'يرجى اختيار الجنسية',
+                        confirmButtonText: 'حسنًا',
+                        confirmButtonColor: '#006837'
+                    });
+                    return false;
+                }
+                
+                appState.gpa = gpa;
+                appState.aptitude = aptitude;
+                appState.achievement = achievement;
+                appState.englishTest = document.getElementById('englishTest').value || null;
+                appState.nationality = nationality;
+                
+                const availableSpecialties = getAvailableSpecialties();
+                if (availableSpecialties.length === 0) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'لا توجد تخصصات متاحة',
+                        text: 'بناءً على بياناتك الأكاديمية، لا توجد تخصصات متاحة لك. يرجى تعديل بياناتك أو اختيار مسار قبول آخر.',
+                        confirmButtonText: 'حسنًا',
+                        confirmButtonColor: '#006837'
+                    });
+                    return false;
+                }
+                
+                const creditHours = parseInt(document.getElementById('creditHours').value);
+                if (creditHours < 12 || creditHours > 24 || isNaN(creditHours)) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'عدد ساعات غير صالح',
+                        text: 'يرجى إدخال عدد ساعات معتمدة بين 12 و 24',
+                        confirmButtonText: 'حسنًا',
+                        confirmButtonColor: '#006837'
+                    });
+                    return false;
+                }
+            }
+            
+            if (currentStep === 3) {
+                if (!appState.selectedSpecialty) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'تخصص غير محدد',
+                        text: 'يرجى اختيار التخصص المناسب لك',
+                        confirmButtonText: 'حسنًا',
+                        confirmButtonColor: '#006837'
+                    });
+                    return false;
+                }
+                
+                if (!appState.studyType) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'نوع الدراسة غير محدد',
+                        text: 'يرجى اختيار نوع الدراسة (حضوري/عن بعد)',
+                        confirmButtonText: 'حسنًا',
+                        confirmButtonColor: '#006837'
+                    });
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        // الحصول على التخصصات المتاحة بناءً على البيانات الحالية
+        function getAvailableSpecialties() {
+            const gpa = parseFloat(document.getElementById('gpa').value) || 0;
+            const aptitude = parseFloat(document.getElementById('aptitude').value) || 0;
+            const achievement = parseFloat(document.getElementById('achievement').value) || 0;
+            
+            let allSpecialties = [];
+            for (const category in specialtiesData) {
+                allSpecialties = allSpecialties.concat(specialtiesData[category]);
+            }
+            
+            return allSpecialties.filter(specialty => {
+                if (!specialty.availableFor.includes(appState.admissionPath)) {
+                    return false;
+                }
+                
+                if (gpa >= specialty.minGPA && aptitude >= specialty.minAptitude && achievement >= specialty.minAchievement) {
+                    return true;
+                }
+                
+                return false;
+            });
+        }
+
+        // تحديث المحرك الذكي: التخصصات المتاحة - مع تفعيل اختيار التخصص من المرحلة الثانية
+        function updateAvailableSpecialties() {
+            const gpa = parseFloat(document.getElementById('gpa').value);
+            const aptitude = parseFloat(document.getElementById('aptitude').value);
+            const achievement = parseFloat(document.getElementById('achievement').value);
+            
+            if (!gpa || !aptitude || !achievement) {
+                document.getElementById('availableSpecialties').classList.add('hidden');
+                return;
+            }
+            
+            const specialtiesList = document.getElementById('specialtiesList');
+            specialtiesList.innerHTML = '';
+            
+            const availableSpecialties = getAvailableSpecialties();
+            
+            const availableSpecialtiesDiv = document.getElementById('availableSpecialties');
+            if (availableSpecialties.length > 0) {
+                availableSpecialtiesDiv.classList.remove('hidden');
+                
+                availableSpecialties.forEach(specialty => {
+                    const specialtyCard = document.createElement('div');
+                    specialtyCard.className = 'specialty-card-step2 p-3 md:p-4 border border-gray-300 rounded-lg bg-green-50';
+                    specialtyCard.dataset.id = specialty.id;
+                    specialtyCard.dataset.name = specialty.name;
+                    specialtyCard.dataset.gpa = specialty.minGPA;
+                    specialtyCard.dataset.aptitude = specialty.minAptitude;
+                    specialtyCard.dataset.achievement = specialty.minAchievement;
+                    
+                    if (appState.selectedSpecialty && appState.selectedSpecialty.id === specialty.id) {
+                        specialtyCard.classList.add('selected');
+                        specialtyCard.classList.remove('bg-green-50');
+                        specialtyCard.classList.add('bg-green-100');
+                    }
+                    
+                    specialtyCard.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h5 class="font-bold text-green-800 text-sm md:text-base">${specialty.name}</h5>
+                                <p class="text-xs md:text-sm text-gray-600 mt-1">الحد الأدنى: ${specialty.minGPA}% معدل، ${specialty.minAptitude}% قدرات، ${specialty.minAchievement}% تحصيلي</p>
+                            </div>
+                            <div class="text-green-700">
+                                ${appState.selectedSpecialty && appState.selectedSpecialty.id === specialty.id ? 
+                                    '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>' : 
+                                    '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>'
+                                }
+                            </div>
+                        </div>
+                    `;
+                    
+                    // إضافة Event Listener مباشرة لكل بطاقة تخصص في المرحلة الثانية
+                    specialtyCard.addEventListener('click', function() {
+                        // 1. إزالة التحديد من جميع البطاقات في المرحلة الثانية
+                        document.querySelectorAll('.specialty-card-step2').forEach(card => {
+                            card.classList.remove('selected');
+                            card.querySelector('svg').outerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>';
+                            card.classList.remove('bg-green-100');
+                            card.classList.add('bg-green-50');
+                        });
+                        
+                        // 2. إضافة التحديد للبطاقة المختارة
+                        this.classList.add('selected');
+                        this.querySelector('svg').outerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>';
+                        this.classList.remove('bg-green-50');
+                        this.classList.add('bg-green-100');
+                        
+                        // 3. إسناد قيمة التخصص المختار إلى appState
+                        appState.selectedSpecialty = {
+                            id: this.dataset.id,
+                            name: this.dataset.name,
+                            minGPA: this.dataset.gpa,
+                            minAptitude: this.dataset.aptitude,
+                            minAchievement: this.dataset.achievement
+                        };
+                        
+                        // 4. تحديث حاسبة الرسوم
+                        updateFeeCalculator();
+                        
+                        // 5. تحديث قسم المراجعة النهائية
+                        updateReviewSection();
+                        
+                        // 6. حفظ في sessionStorage
+                        saveToSessionStorage();
+                        
+                        // 7. الانتقال التلقائي للمرحلة الثالثة بعد تأخير بسيط
+                        setTimeout(() => {
+                            navigateToStep(3);
+                        }, 500);
+                    });
+                    
+                    specialtiesList.appendChild(specialtyCard);
+                });
+                
+                document.getElementById('specialtiesNote').textContent = `هناك ${availableSpecialties.length} تخصص(ات) متاح(ة) لك بناءً على بياناتك. انقر على أي تخصص للانتقال التلقائي للمرحلة التالية.`;
+                document.getElementById('specialtiesNote').className = 'text-sm text-green-600 mt-2 md:mt-3';
+                
+                // إضافة Event Delegation للعنصر الأساسي (نسخة احتياطية)
+                specialtiesList.addEventListener('click', function(e) {
+                    const card = e.target.closest('.specialty-card-step2');
+                    if (card && !card.classList.contains('selected')) {
+                        // إعادة تشغيل نفس منطق النقر
+                        document.querySelectorAll('.specialty-card-step2').forEach(c => {
+                            c.classList.remove('selected');
+                            c.querySelector('svg').outerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>';
+                            c.classList.remove('bg-green-100');
+                            c.classList.add('bg-green-50');
+                        });
+                        
+                        card.classList.add('selected');
+                        card.querySelector('svg').outerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>';
+                        card.classList.remove('bg-green-50');
+                        card.classList.add('bg-green-100');
+                        
+                        appState.selectedSpecialty = {
+                            id: card.dataset.id,
+                            name: card.dataset.name,
+                            minGPA: card.dataset.gpa,
+                            minAptitude: card.dataset.aptitude,
+                            minAchievement: card.dataset.achievement
+                        };
+                        
+                        updateFeeCalculator();
+                        updateReviewSection();
+                        saveToSessionStorage();
+                        
+                        setTimeout(() => {
+                            navigateToStep(3);
+                        }, 500);
+                    }
+                });
+            } else {
+                availableSpecialtiesDiv.classList.remove('hidden');
+                document.getElementById('specialtiesNote').textContent = 'لا توجد تخصصات متاحة لك بناءً على البيانات المدخلة. حاول تحسين درجاتك أو اختيار مسار آخر.';
+                document.getElementById('specialtiesNote').className = 'text-sm text-red-600 mt-2 md:mt-3';
+            }
+        }
+
+        // تعبئة اختيارات التخصص في الخطوة 3 - مع مزامنة البيانات بين المرحلتين
+        function populateSpecialtiesSelection() {
+            const specialtiesSelection = document.getElementById('specialtiesSelection');
+            specialtiesSelection.innerHTML = '';
+            
+            const availableSpecialties = getAvailableSpecialties();
+            
+            if (availableSpecialties.length === 0) {
+                specialtiesSelection.innerHTML = '<div class="col-span-2 p-3 md:p-4 text-center bg-red-50 border border-red-200 rounded-lg"><p class="text-red-600 text-sm md:text-base">لا توجد تخصصات متاحة بناءً على بياناتك. يرجى العودة إلى الخطوة السابقة وتعديل بياناتك.</p></div>';
+                appState.selectedSpecialty = null;
+                return;
+            }
+            
+            availableSpecialties.forEach(specialty => {
+                const specialtyCard = document.createElement('div');
+                specialtyCard.className = 'specialty-card p-3 md:p-4 rounded-lg cursor-pointer';
+                specialtyCard.dataset.id = specialty.id;
+                
+                // قراءة القيمة المسبقة من appState ووضع علامة "مختار"
+                const isSelected = appState.selectedSpecialty && appState.selectedSpecialty.id === specialty.id;
+                
+                if (isSelected) {
+                    specialtyCard.classList.add('selected');
+                }
+                
+                specialtyCard.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-sm md:text-base">${specialty.name}</h5>
+                            <p class="text-xs md:text-sm text-gray-600 mt-1">الحد الأدنى: ${specialty.minGPA}% معدل، ${specialty.minAptitude}% قدرات، ${specialty.minAchievement}% تحصيلي</p>
+                        </div>
+                        <div class="text-green-700">
+                            ${isSelected ? 
+                                '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>' : 
+                                '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>'
+                            }
+                        </div>
+                    </div>
+                `;
+                
+                // Event Listener لكل بطاقة تخصص في المرحلة الثالثة
+                specialtyCard.addEventListener('click', function() {
+                    document.querySelectorAll('.specialty-card[data-id]').forEach(c => {
+                        c.classList.remove('selected');
+                        c.querySelector('svg').outerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>';
+                    });
+                    
+                    this.classList.add('selected');
+                    this.querySelector('svg').outerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>';
+                    
+                    appState.selectedSpecialty = specialty;
+                    updateFeeCalculator();
+                    
+                    // استدعاء دالة التحقق فور النقر
+                    validateStep3();
+                    
+                    // حفظ في sessionStorage
+                    saveToSessionStorage();
+                });
+                
+                specialtiesSelection.appendChild(specialtyCard);
+            });
+            
+            // إذا كان هناك تخصص محدد مسبقاً في appState، تأكد من تحديث زر "التالي"
+            if (appState.selectedSpecialty) {
+                validateStep3();
+            }
+        }
+
+        // التحقق من صحة الخطوة 3
+        function validateStep3() {
+            const nextButton = document.getElementById('nextToStep4');
+            const isSpecialtySelected = appState.selectedSpecialty !== null;
+            const isStudyTypeSelected = appState.studyType !== null;
+            
+            if (isSpecialtySelected && isStudyTypeSelected) {
+                nextButton.disabled = false;
+                nextButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                nextButton.classList.add('hover:bg-green-800');
+            } else {
+                nextButton.disabled = true;
+                nextButton.classList.add('opacity-50', 'cursor-not-allowed');
+                nextButton.classList.remove('hover:bg-green-800');
+            }
+        }
+
+        // تحديث حاسبة الرسوم
+        function updateFeeCalculator() {
+            const feePath = document.getElementById('feePath');
+            const feeStudyType = document.getElementById('feeStudyType');
+            const feeHours = document.getElementById('feeHours');
+            const feeHourPrice = document.getElementById('feeHourPrice');
+            const feeTotal = document.getElementById('feeTotal');
+            const feeDiscount = document.getElementById('feeDiscount');
+            const feeAfterDiscount = document.getElementById('feeAfterDiscount');
+            const feeNote = document.getElementById('feeNote');
+            
+            if (appState.admissionPath) {
+                const pathNames = {
+                    'new': 'طالب جديد (بكالوريوس)',
+                    'bridging': 'تجسير (دبلوم إلى بكالوريوس)',
+                    'postgraduate': 'دراسات عليا'
+                };
+                feePath.textContent = pathNames[appState.admissionPath];
+            } else {
+                feePath.textContent = 'لم يحدد بعد';
+            }
+            
+            if (appState.studyType) {
+                const studyTypeNames = {
+                    'on-campus': 'حضورية',
+                    'distance': 'عن بعد'
+                };
+                feeStudyType.textContent = studyTypeNames[appState.studyType];
+            } else {
+                feeStudyType.textContent = 'لم يحدد بعد';
+            }
+            
+            feeHours.textContent = appState.creditHours;
+            
+            let hourPrice = 0;
+            let discount = 0;
+            
+            if (appState.studyType === 'on-campus') {
+                hourPrice = 2500;
+            } else if (appState.studyType === 'distance') {
+                hourPrice = 1500;
+                discount = 0.4;
+            }
+            
+            const totalBeforeDiscount = hourPrice * appState.creditHours;
+            const discountAmount = totalBeforeDiscount * discount;
+            const finalAmount = totalBeforeDiscount - discountAmount;
+            
+            feeHourPrice.textContent = `${hourPrice.toLocaleString()} ريال`;
+            feeTotal.textContent = `${totalBeforeDiscount.toLocaleString()} ريال`;
+            feeDiscount.textContent = `${discountAmount.toLocaleString()} ريال`;
+            
+            if (appState.nationality === 'saudi' && appState.admissionPath === 'new' && appState.studyType === 'on-campus') {
+                feeAfterDiscount.textContent = '0 ريال';
+                feeNote.innerHTML = '<strong>ملاحظة:</strong> الدراسة مدعومة حكومياً للطلاب السعوديين في برامج البكالوريوس الحضورية.';
+                feeNote.classList.remove('hidden');
+                feeNote.classList.remove('bg-yellow-50', 'text-yellow-800', 'border-yellow-200');
+                feeNote.classList.add('bg-green-50', 'text-green-800', 'border-green-200');
+                appState.calculatedFees = 0;
+            } else if (appState.studyType === 'distance') {
+                feeAfterDiscount.textContent = `${finalAmount.toLocaleString()} ريال`;
+                feeNote.innerHTML = '<strong>ملاحظة:</strong> خصم 40% مطبق على الدراسة عن بعد.';
+                feeNote.classList.remove('hidden');
+                feeNote.classList.remove('bg-green-50', 'text-green-800', 'border-green-200');
+                feeNote.classList.add('bg-yellow-50', 'text-yellow-800', 'border-yellow-200');
+                appState.calculatedFees = finalAmount;
+            } else if (appState.nationality === 'non-saudi' && appState.admissionPath === 'new' && appState.studyType === 'on-campus') {
+                feeAfterDiscount.textContent = `${finalAmount.toLocaleString()} ريال`;
+                feeNote.innerHTML = '<strong>ملاحظة:</strong> الرسوم كاملة تنطبق على الطلاب غير السعوديين.';
+                feeNote.classList.remove('hidden');
+                feeNote.classList.add('bg-blue-50', 'text-blue-800', 'border-blue-200');
+                appState.calculatedFees = finalAmount;
+            } else {
+                feeAfterDiscount.textContent = `${finalAmount.toLocaleString()} ريال`;
+                appState.calculatedFees = finalAmount;
+                feeNote.classList.add('hidden');
+            }
+        }
+
+        // تحديث قسم المراجعة النهائية
+        function updateReviewSection() {
+            const pathNames = {
+                'new': 'طالب جديد (بكالوريوس)',
+                'bridging': 'تجسير (دبلوم إلى بكالوريوس)',
+                'postgraduate': 'دراسات عليا'
+            };
+            document.getElementById('reviewPath').textContent = appState.admissionPath ? pathNames[appState.admissionPath] : '-';
+            
+            document.getElementById('reviewSpecialty').textContent = appState.selectedSpecialty ? appState.selectedSpecialty.name : '-';
+            
+            const studyTypeNames = {
+                'on-campus': 'حضورية',
+                'distance': 'عن بعد'
+            };
+            document.getElementById('reviewStudyType').textContent = appState.studyType ? studyTypeNames[appState.studyType] : '-';
+            
+            document.getElementById('reviewGPA').textContent = appState.gpa ? `${appState.gpa}%` : '-';
+            document.getElementById('reviewHours').textContent = appState.creditHours ? `${appState.creditHours} ساعة` : '-';
+            
+            document.getElementById('reviewFees').textContent = `${appState.calculatedFees.toLocaleString()} ريال`;
+        }
+
+        // تحضير بيانات النموذج للإرسال
+        function prepareFormData() {
+            const gpa = parseFloat(document.getElementById('gpa').value) || 0;
+            const aptitude = parseFloat(document.getElementById('aptitude').value) || 0;
+            const achievement = parseFloat(document.getElementById('achievement').value) || 0;
+            const englishTest = document.getElementById('englishTest').value || '';
+            
+            let creditHours = parseInt(document.getElementById('creditHours').value) || 15;
+            creditHours = Math.min(24, Math.max(12, creditHours));
+            
+            document.getElementById('formPath').value = appState.admissionPath;
+            document.getElementById('formSpecialty').value = appState.selectedSpecialty ? appState.selectedSpecialty.name : '';
+            document.getElementById('formStudyType').value = appState.studyType;
+            document.getElementById('formCreditHours').value = creditHours;
+            document.getElementById('formGPA').value = gpa;
+            document.getElementById('formAptitude').value = aptitude;
+            document.getElementById('formAchievement').value = achievement;
+            document.getElementById('formEnglish').value = englishTest;
+            document.getElementById('formGraduationYear').value = document.getElementById('graduationYear').value;
+            document.getElementById('formCertificateType').value = document.getElementById('certificateType').value;
+            document.getElementById('formFullName').value = document.getElementById('fullName').value;
+            document.getElementById('formNationalId').value = document.getElementById('nationalId').value;
+            document.getElementById('formEmail').value = document.getElementById('email').value;
+            document.getElementById('formPhone').value = document.getElementById('phone').value;
+            document.getElementById('formNationality').value = appState.nationality;
+            
+            if (appState.admissionPath === 'bridging') {
+                document.getElementById('formDiplomaMajor').value = document.getElementById('diplomaMajor').value;
+                document.getElementById('formDiplomaCertificate').value = document.getElementById('diplomaCertificate').value || 'سيتم رفعه لاحقاً';
+            } else {
+                document.getElementById('formDiplomaMajor').value = '';
+                document.getElementById('formDiplomaCertificate').value = '';
+            }
+        }
+
+        // دالة التحقق من صحة رقم الهوية الوطنية مع تنظيف المدخلات
+        function isValidSaudiID(id) {
+            const cleanedId = id.replace(/[^\d]/g, '');
+            
+            if (cleanedId.length !== 10) {
+                return false;
+            }
+            
+            if (!['1', '2'].includes(cleanedId.charAt(0))) {
+                return false;
+            }
+            
+            if (!/^\d+$/.test(cleanedId)) {
+                return false;
+            }
+            
+            return true;
+        }
+
+        // إرسال الطلب مع timeout للاتصال
+        async function submitApplication() {
+            if (!validateFinalSubmission()) {
+                return;
+            }
+            
+            const submitBtn = document.getElementById('submitApplication');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'جاري الإرسال... <span class="animate-spin ml-2">⟳</span>';
+            
+            prepareFormData();
+            
+            try {
+                const form = document.getElementById('admissionForm');
+                const formData = new FormData(form);
+                
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => {
+                    controller.abort();
+                    throw new Error('انتهت مهلة الاتصال بالخادم');
+                }, 15000);
+                
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData,
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                
+                const result = await response.json();
+                
+                if (response.status === 200 && result.success) {
+                    const refNumber = 'UHB-' + Math.floor(100000 + Math.random() * 900000);
+                    
+                    sessionStorage.removeItem('admissionFormData');
+                    
+                    Swal.fire({
+                        title: 'تم تقديم طلبك بنجاح!',
+                        html: `
+                            <div class="text-center">
+                                <div class="text-4xl md:text-6xl mb-3 md:mb-4">✅</div>
+                                <p class="text-base md:text-lg mb-3 md:mb-4">تم تقديم طلبك بنجاح! سيتم التواصل بك من قبل موظف الشؤون الإدارية والمالية لاستكمال بقية الإجراءات وسداد الرسوم المحسوبة وتأكيد القبول.</p>
+                                <p class="text-lg md:text-xl font-bold text-green-700 mb-4 md:mb-6 p-2 md:p-3 bg-green-50 rounded-lg">رقمك المرجعي هو: ${refNumber}</p>
+                                <p class="text-sm text-gray-600">يرجى حفظ هذا الرقم للمراجعة اللاحقة</p>
+                            </div>
+                        `,
+                        icon: 'success',
+                        confirmButtonText: 'حسنًا',
+                        confirmButtonColor: '#006837',
+                        allowOutsideClick: false,
+                        didClose: () => {
+                            setTimeout(() => location.reload(), 1000);
+                        }
+                    });
+                } else {
+                    throw new Error(result.message || 'فشل في إرسال الطلب');
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                
+                let errorMessage = 'حدث خطأ أثناء إرسال طلبك. يرجى المحاولة مرة أخرى أو التواصل مع الدعم الفني.';
+                
+                if (error.name === 'AbortError' || error.message.includes('مهلة')) {
+                    errorMessage = 'انتهت مهلة الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.';
+                } else if (error.message.includes('network') || error.message.includes('Network')) {
+                    errorMessage = 'فشل في الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.';
+                }
+                
+                Swal.fire({
+                    title: 'خطأ في الإرسال',
+                    text: errorMessage,
+                    icon: 'error',
+                    confirmButtonText: 'حسنًا',
+                    confirmButtonColor: '#006837'
+                });
+                
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        }
+
+        // التحقق النهائي من صحة جميع البيانات قبل الإرسال
+        function validateFinalSubmission() {
+            const fullName = document.getElementById('fullName').value.trim();
+            let nationalId = document.getElementById('nationalId').value;
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            
+            nationalId = nationalId.replace(/[^\d]/g, '');
+            document.getElementById('nationalId').value = nationalId;
+            
+            if (!fullName || !nationalId || !email || !phone || !appState.nationality) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'بيانات ناقصة',
+                    text: 'يرجى إكمال جميع المعلومات الشخصية المطلوبة',
+                    confirmButtonText: 'حسنًا',
+                    confirmButtonColor: '#006837'
+                });
+                return false;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'بريد إلكتروني غير صالح',
+                    text: 'يرجى إدخال بريد إلكتروني صحيح',
+                    confirmButtonText: 'حسنًا',
+                    confirmButtonColor: '#006837'
+                });
+                return false;
+            }
+            
+            const phoneRegex = /^05\d{8}$/;
+            if (!phoneRegex.test(phone)) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'رقم جوال غير صالح',
+                    text: 'يرجى إدخال رقم جوال سعودي صحيح يبدأ بـ 05 ويحتوي على 10 أرقام',
+                    confirmButtonText: 'حسنًا',
+                    confirmButtonColor: '#006837'
+                });
+                return false;
+            }
+            
+            if (!isValidSaudiID(nationalId)) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'رقم هوية غير صالح',
+                    text: 'يرجى إدخال رقم هوية وطنية سعودي صحيح (يبدأ بـ 1 أو 2 ويتكون من 10 أرقام)',
+                    confirmButtonText: 'حسنًا',
+                    confirmButtonColor: '#006837'
+                });
+                return false;
+            }
+            
+            if (!appState.agreementChecked) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'موافقة مطلوبة',
+                    text: 'يرجى الموافقة على الشروط والأحكام',
+                    confirmButtonText: 'حسنًا',
+                    confirmButtonColor: '#006837'
+                });
+                return false;
+            }
+            
+            return true;
+        }
+    </script>
+</body>
+                                  </html>
